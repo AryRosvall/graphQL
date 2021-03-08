@@ -1,20 +1,31 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ItemList } from "./ItemList";
 import AppContext, { TypeContext } from "../context/context";
+import { nestedSort } from "../helpers/helperFunctions";
 
 export function List({
   headers,
-  title
+  title,
 }: {
   headers: string[];
   title?: string;
 }) {
-  const { state: desserts } = (useContext(
-    AppContext
-  ) as unknown) as TypeContext;
+  const {
+    state: { desserts },
+    sortDesserts,
+  } = (useContext(AppContext) as unknown) as TypeContext;
 
-  console.log("List", desserts);
-  return (
+  const [order, setOrder] = useState(true);
+
+  const sortColumn = (column: string) => {
+    const sortedDesserts = [...desserts].sort(
+      nestedSort("nutritionInfo", column.toLowerCase(), order ? "asc" : "desc")
+    );
+    setOrder(!order);
+    sortDesserts(sortedDesserts);
+  };
+
+  return desserts ? (
     <div className="pa4">
       <div className="f6 w-100 mw8 center">
         <b>{title || "List of Items"}</b>
@@ -24,8 +35,12 @@ export function List({
           <thead>
             <tr className="stripe-dark">
               {headers.length > 0
-                ? headers.map(head => (
-                    <th className="fw6 tl pa3 bg-white" key={head}>
+                ? headers.map((head) => (
+                    <th
+                      className="fw6 tl pa3 bg-white"
+                      key={head}
+                      onClick={() => sortColumn(head)}
+                    >
                       {head}
                     </th>
                   ))
@@ -42,5 +57,5 @@ export function List({
         </table>
       </div>
     </div>
-  );
+  ) : null;
 }

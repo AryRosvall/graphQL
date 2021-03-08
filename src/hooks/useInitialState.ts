@@ -6,6 +6,7 @@ import {gql} from "@apollo/client";
 function useInitialState(): {
   addToDesserts: (payload: IDessert) => void;
   removeFromDesserts: (indexList: number) => void;
+  sortDesserts: (payload: IDessert[]) => void;
   state: any
 } {
   const [state, setState] = useState({desserts: []});
@@ -34,6 +35,7 @@ function useInitialState(): {
   };
 
   useEffect( ()=> {
+    console.log("entro")
      fetchData();
     },[]);
 
@@ -53,10 +55,19 @@ function useInitialState(): {
       )
     });
   };
+  const sortDesserts = (payload: IDessert[]): void => {
+    setState({
+      ...state,
+      // @ts-ignore
+      desserts: [ ...payload]
+    });
+  };
+
 
   return {
     addToDesserts,
     removeFromDesserts,
+    sortDesserts,
     state
   };
 }
