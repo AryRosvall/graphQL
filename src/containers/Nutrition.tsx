@@ -1,11 +1,11 @@
-import React, {ReactElement} from "react";
+import React, { ReactElement } from "react";
 
 import { List } from "../components/List";
 import { Form } from "../components/Form";
 
 export function Nutrition(): ReactElement {
   const title = "Nutrition List";
-  const headers = ["Dessert", "Calories", "Fat", "Carbs", "Protein"];
+  const headers = ["", "Dessert", "Calories", "Fat", "Carbs", "Protein"];
 
   return (
     <div>

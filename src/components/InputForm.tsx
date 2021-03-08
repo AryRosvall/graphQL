@@ -1,14 +1,12 @@
 import React, { ReactElement } from "react";
+import { IInputForm } from "../Interfaces/IInputForm";
 
 export function InputForm({
   name,
   type,
-  required
-}: {
-  name: string;
-  type: string;
-  required: boolean;
-}): ReactElement {
+  required,
+  handleChange,
+}: IInputForm): ReactElement {
   return (
     <div className="mb4 black-80">
       <label htmlFor={name} className="db fw6 lh-copy f6">
@@ -19,6 +17,7 @@ export function InputForm({
         type={type}
         name={name}
         className="input-reset ba b--black-20 pa2 br2 mb2 db w-100"
+        onChange={(event) => handleChange?.(event)}
       />
     </div>
   );

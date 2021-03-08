@@ -1,4 +1,4 @@
-type nutritionInfo = {
+export type nutritionInfo = {
   calories: number;
   fat: number;
   carbs: number;
@@ -6,7 +6,7 @@ type nutritionInfo = {
 };
 
 export interface IDessert {
-  _id: string;
+  _id?: string;
   dessert: String;
   nutritionInfo: nutritionInfo;
 }
